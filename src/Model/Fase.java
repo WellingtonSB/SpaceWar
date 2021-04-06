@@ -46,7 +46,7 @@ public class Fase extends JPanel implements ActionListener {
 
 		addKeyListener(new TecladoAdapter());
 
-		timer = new Timer(5, this);// velocidade do jogo
+		timer = new Timer(20, this);// velocidade do jogo
 		timer.start();
 
 		inicializaInimigos();
@@ -57,7 +57,7 @@ public class Fase extends JPanel implements ActionListener {
 	}// constructor
 
 	public void inicializaInimigos() {
-		int coordenadas[] = new int[1];// numero maximos de inimigo(ajustar dificuldades dps)
+		int coordenadas[] = new int[50];// numero maximos de inimigo(ajustar dificuldades dps)
 		inimigo1 = new ArrayList<Inimigo1>();
 
 		for (int i = 0; i < coordenadas.length; i++) {
@@ -69,7 +69,7 @@ public class Fase extends JPanel implements ActionListener {
 	}// inicializaInimigos
 
 	public void inicializaNebulas() {
-		int coordenadas[] = new int[3];
+		int coordenadas[] = new int[1];
 		nebulas = new ArrayList<Nebula>();
 
 		for (int i = 0; i < coordenadas.length; i++) {
@@ -102,10 +102,42 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(nf.getImagem(), nf.getX(), nf.getY(), this);
 			}
 
-			graficos.setColor(Color.WHITE);
-			graficos.setFont(new Font("Ink Free", Font.BOLD, 40));
-			FontMetrics metric = getFontMetrics(graficos.getFont());
-			graficos.drawString("Naves destruidas: " + contador,(SCREEN_WIDTH - metric.stringWidth("Naves destruidas: " + contador)) / 2,graficos.getFont().getSize());
+			if (player.getVida() != 0) {
+				graficos.setColor(Color.WHITE);
+
+				graficos.setFont(new Font("Ink Free", Font.BOLD, 40));
+				FontMetrics metric = getFontMetrics(graficos.getFont());
+				graficos.drawString("Naves destruidas: " + contador,
+						(SCREEN_WIDTH - metric.stringWidth("Naves destruidas: " + contador)) / 2,
+						graficos.getFont().getSize());
+
+				graficos.setColor(Color.GREEN);
+				graficos.setFont(new Font("Ink Free", Font.BOLD, 40));
+				FontMetrics metric1 = getFontMetrics(graficos.getFont());
+				graficos.drawString("Vidas: " + player.getVida(),
+						(SCREEN_WIDTH - metric1.stringWidth("Vidas: " + player.getVida())) / 5,
+						graficos.getFont().getSize());
+			}
+
+			if (player.getVida() == 0) {
+				graficos.setColor(Color.RED);
+				graficos.setFont(new Font("Ink Free", Font.BOLD, 40));
+				FontMetrics metric2 = getFontMetrics(graficos.getFont());
+				graficos.drawString("CUIDADO A PROXIMA VOCE MORRE",
+						(SCREEN_WIDTH - metric2.stringWidth("CUIDADO A PROXIMA VOCE MORRE")) / 9,
+						graficos.getFont().getSize());
+
+			}
+
+			if (player.getTurboLiberar() == 0) {
+				graficos.setColor(Color.RED);
+				graficos.setFont(new Font("Ink Free", Font.BOLD, 40));
+				FontMetrics metric2 = getFontMetrics(graficos.getFont());
+				graficos.drawString("SEU COMBUSTIVEL ACABOU",
+						(SCREEN_WIDTH - metric2.stringWidth("SEU COMBUSTIVEL ACABOU")) / 9,
+						graficos.getFont().getSize());
+
+			}
 
 			for (int j = 0; j < nebulas.size(); j++) {
 				Nebula n = nebulas.get(j);
@@ -113,7 +145,9 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(n.getImagem(), n.getX(), n.getY(), this);
 			} // for
 
-			graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);// Nave fica acima do tiro,visualmente fica mais bonito
+			graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);// Nave fica acima do
+																						// tiro,visualmente fica mais
+																						// bonito
 			List<Tiro> tiros = player.getTiros();
 			for (int i = 0; i < tiros.size(); i++) {
 				Tiro m = tiros.get(i);
@@ -140,6 +174,16 @@ public class Fase extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		player.update();
 
+		if (player.isTurbo()) {
+			timer.setDelay(1);
+			player.setTurboLiberar(player.getTurboLiberar()-1);
+		}
+		
+		if (player.isTurbo() == false) {
+			timer.setDelay(20);
+		}
+		
+		
 		for (int j = 0; j < star.size(); j++) {
 			Stars on = star.get(j);
 			if (on.isVisivel()) {
@@ -163,6 +207,13 @@ public class Fase extends JPanel implements ActionListener {
 			Tiro m = tiros.get(i);
 			if (m.isVisivel()) {
 				m.update();
+				if (player.isTurbo()) {
+					tiros.get(i).setVELOCIDADE(1);
+				}
+				if (player.isTurbo() == false) {
+					tiros.get(i).setVELOCIDADE(10);
+				}
+
 			} else {
 				tiros.remove(i);
 			}
@@ -191,9 +242,20 @@ public class Fase extends JPanel implements ActionListener {
 			Inimigo1 tempInimigo1 = inimigo1.get(i);
 			formaInimigo1 = tempInimigo1.getBounds();
 			if (formaNave.intersects(formaInimigo1)) {
-				player.setVisivel(false);
-				tempInimigo1.setVisivel(false);
-				emJogo = false;
+
+				if (player.isTurbo()) {
+					tempInimigo1.setVisivel(false);
+					contador++;
+				}
+				if (player.getVida() != 0) {
+					player.setVisivel(false);
+					tempInimigo1.setVisivel(false);
+					player.setVida(player.getVida() - 1);
+				} else {
+					player.setVisivel(false);
+					tempInimigo1.setVisivel(false);
+					emJogo = false;
+				}
 			}
 		}
 
@@ -212,8 +274,6 @@ public class Fase extends JPanel implements ActionListener {
 			}
 		}
 
-		
-		
 	}// checarColisoes
 
 	private class TecladoAdapter extends KeyAdapter {

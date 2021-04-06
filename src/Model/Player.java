@@ -2,32 +2,67 @@ package Model;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-public class Player {
+public class Player implements ActionListener {
 
 	private int x, y;
 	private int dx, dy;
 	private Image imagem;
 	private int altura, largura;
 	private List<Tiro> tiros;
-	private boolean isVisivel;
+	private boolean isVisivel, isTurbo;
+	private Timer timer;
+	private int vida,turboLiberar;
+	
 
 	public Player() {
 		this.x = 100;
 		this.y = 728 / 2;
-		isVisivel = true;
 
+		vida = 5;
+		turboLiberar = 3;
+		isVisivel = true;
+		isTurbo = false;
 		tiros = new ArrayList<Tiro>();
+
+		timer = new Timer(5000, this);// cronometro 7 segundos
+		timer.start();
 
 	}// constructor
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (isTurbo == true) {
+			turbo();
+			isTurbo = false;
+
+		}
+		// gambiarra provisoria
+		if (isTurbo == false) {
+			load();
+		}
+
+	}
+
+	public void turbo() {
+
+		isTurbo = true;
+		ImageIcon referencia = new ImageIcon("res\\naveTurbo.gif");
+		imagem = referencia.getImage();
+
+	}
+
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\you.gif");
+		ImageIcon referencia = new ImageIcon("res\\naveMAE.gif");
 		imagem = referencia.getImage();
 		altura = imagem.getHeight(null);
 		largura = imagem.getWidth(null);
@@ -49,8 +84,17 @@ public class Player {
 	public void keypressed(KeyEvent tecla) {
 		int codigo = tecla.getKeyCode();
 		// quando pressionar a tecla dx e dy irão virar tres (ira se mexer)
+
+		if (codigo == KeyEvent.VK_CONTROL) {
+			turbo();
+
+		}
+
 		if (codigo == KeyEvent.VK_SPACE) {
-			tiroSimples();
+			if (isTurbo() == false) {
+				tiroSimples();
+			}
+
 		} // if
 
 		if (codigo == KeyEvent.VK_UP) {
@@ -73,6 +117,7 @@ public class Player {
 
 		// quando parar de pressionar a tecla dx e dy irão virar zero(ira parar de se
 		// mexer)
+
 		if (codigo == KeyEvent.VK_UP) {
 			dy = 0;
 		} // if
@@ -96,6 +141,14 @@ public class Player {
 		this.isVisivel = isVisivel;
 	}
 
+	public boolean isTurbo() {
+		return isTurbo;
+	}
+
+	public void setTurbo(boolean isTurbo) {
+		this.isTurbo = isTurbo;
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -110,6 +163,22 @@ public class Player {
 
 	public List<Tiro> getTiros() {
 		return tiros;
+	}
+
+	public int getVida() {
+		return vida;
+	}
+
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+
+	public int getTurboLiberar() {
+		return turboLiberar;
+	}
+
+	public void setTurboLiberar(int turboLiberar) {
+		this.turboLiberar = turboLiberar;
 	}
 
 }// class
