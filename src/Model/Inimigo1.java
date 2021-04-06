@@ -6,36 +6,33 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Inimigo1 {
-	
+
 	private Image imagem;
 	private int x, y;
 	private int largura, altura;
 	private boolean isVisivel;
-	
-	//private static final int LARGURA = 938;
+
 	private static int VELOCIDADE = 5;
-	
-	public Inimigo1 (int x, int y) {
+
+	public Inimigo1(int x, int y) {
 		this.x = x;
 		this.y = y;
 		isVisivel = true;
-	}//constructor
-	
+	}// constructor
+
 	public void load() {
 		ImageIcon referencia = new ImageIcon("res\\inimigo1.png");
 		imagem = referencia.getImage();
-		
+
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
-	}//load
-	
+	}// load
+
 	public void update() {
 		this.x -= VELOCIDADE;
-		//if (this.x > LARGURA) {
-			//isVisivel = false;
-		//}//if
-	}//update
-	
+
+	}// update
+
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, largura, altura);
 	}
@@ -67,7 +64,5 @@ public class Inimigo1 {
 	public Image getImagem() {
 		return imagem;
 	}
-	
-	
-	
-}//class
+
+}// class

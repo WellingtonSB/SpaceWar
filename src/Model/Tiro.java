@@ -13,7 +13,7 @@ public class Tiro {
 	private boolean isVisivel;
 	
 	private static final int LARGURA = 938;
-	private static int VELOCIDADE = 2;
+	private static int VELOCIDADE = 10;
 	
 	public Tiro (int x, int y) {//x e y> a possição de onde saira o tiro é o local onde a nave esta.
 		this.x = x;

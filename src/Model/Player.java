@@ -9,86 +9,84 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 public class Player {
-	
+
 	private int x, y;
 	private int dx, dy;
 	private Image imagem;
 	private int altura, largura;
-	private List <Tiro> tiros;
+	private List<Tiro> tiros;
 	private boolean isVisivel;
-	
+
 	public Player() {
-		this.x= 100;
-		this.y = 728/2;	
-		isVisivel= true;
-		
+		this.x = 100;
+		this.y = 728 / 2;
+		isVisivel = true;
+
 		tiros = new ArrayList<Tiro>();
-		
-	}//constructor
-	
+
+	}// constructor
+
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\spaceship.png");
+		ImageIcon referencia = new ImageIcon("res\\you.gif");
 		imagem = referencia.getImage();
 		altura = imagem.getHeight(null);
 		largura = imagem.getWidth(null);
-	}//load
-	
+	}// load
+
 	public void update() {
 		x += dx;
 		y += dy;
-	}//update
-	
+	}// update
+
 	public void tiroSimples() {
-		this.tiros.add(new Tiro(x + (largura/2), y + (altura/2)));
-	}//tirosimples
-	
+		this.tiros.add(new Tiro(x + (largura / 2), y + (altura / 2)));
+	}// tirosimples
+
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, largura, altura);
 	}
-	
-	
+
 	public void keypressed(KeyEvent tecla) {
-		int codigo  = tecla.getKeyCode();
-		//quando pressionar a tecla dx e dy irão virar tres (ira se mexer)
-		if(codigo== KeyEvent.VK_SPACE) {
+		int codigo = tecla.getKeyCode();
+		// quando pressionar a tecla dx e dy irão virar tres (ira se mexer)
+		if (codigo == KeyEvent.VK_SPACE) {
 			tiroSimples();
-		}//if
-		
-		if(codigo== KeyEvent.VK_UP) {
+		} // if
+
+		if (codigo == KeyEvent.VK_UP) {
 			dy = -3;
-		}//if
-		if(codigo== KeyEvent.VK_DOWN) {
+		} // if
+		if (codigo == KeyEvent.VK_DOWN) {
 			dy = 3;
-		}//if		
-		if(codigo== KeyEvent.VK_LEFT) {
+		} // if
+		if (codigo == KeyEvent.VK_LEFT) {
 			dx = -3;
-		}//if
-		if(codigo== KeyEvent.VK_RIGHT) {
+		} // if
+		if (codigo == KeyEvent.VK_RIGHT) {
 			dx = 3;
-		}//if
-		
-	}//Keypressed
-	
+		} // if
+
+	}// Keypressed
+
 	public void keyRelease(KeyEvent tecla) {
-		int codigo  = tecla.getKeyCode();
-		
-		//quando parar de pressionar a tecla dx e dy irão virar zero(ira parar de se mexer)
-		if(codigo== KeyEvent.VK_UP) {
+		int codigo = tecla.getKeyCode();
+
+		// quando parar de pressionar a tecla dx e dy irão virar zero(ira parar de se
+		// mexer)
+		if (codigo == KeyEvent.VK_UP) {
 			dy = 0;
-		}//if
-		if(codigo== KeyEvent.VK_DOWN) {
+		} // if
+		if (codigo == KeyEvent.VK_DOWN) {
 			dy = 0;
-		}//if		
-		if(codigo== KeyEvent.VK_LEFT) {
+		} // if
+		if (codigo == KeyEvent.VK_LEFT) {
 			dx = 0;
-		}//if
-		if(codigo== KeyEvent.VK_RIGHT) {
+		} // if
+		if (codigo == KeyEvent.VK_RIGHT) {
 			dx = 0;
-		}//if
-		
-	}//KeyRelease
-	
-	
+		} // if
+
+	}// KeyRelease
 
 	public boolean isVisivel() {
 		return isVisivel;
@@ -114,6 +112,4 @@ public class Player {
 		return tiros;
 	}
 
-	
-
-}//class
+}// class

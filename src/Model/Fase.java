@@ -1,5 +1,8 @@
 package Model;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -24,6 +27,9 @@ public class Fase extends JPanel implements ActionListener {
 	private List<Nebula> nebulas;
 	private List<Stars> star;
 	private boolean emJogo;
+	private int contador = 0;
+	static final int SCREEN_WIDTH = 900;
+	static final int SCREEN_HEIGHT = 650;
 
 	public Fase() {
 		setFocusable(true);// melhoria de desempenho
@@ -51,7 +57,7 @@ public class Fase extends JPanel implements ActionListener {
 	}// constructor
 
 	public void inicializaInimigos() {
-		int coordenadas[] = new int[40];// numero maximos de inimigo(ajustar dificuldades dps)
+		int coordenadas[] = new int[1];// numero maximos de inimigo(ajustar dificuldades dps)
 		inimigo1 = new ArrayList<Inimigo1>();
 
 		for (int i = 0; i < coordenadas.length; i++) {
@@ -74,7 +80,7 @@ public class Fase extends JPanel implements ActionListener {
 	}// inicializaNebulas
 
 	public void inicializaStars() {
-		int coordenadas[] = new int[7];
+		int coordenadas[] = new int[10];
 		star = new ArrayList<Stars>();
 
 		for (int i = 0; i < coordenadas.length; i++) {
@@ -96,15 +102,18 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(nf.getImagem(), nf.getX(), nf.getY(), this);
 			}
 
+			graficos.setColor(Color.WHITE);
+			graficos.setFont(new Font("Ink Free", Font.BOLD, 40));
+			FontMetrics metric = getFontMetrics(graficos.getFont());
+			graficos.drawString("Naves destruidas: " + contador,(SCREEN_WIDTH - metric.stringWidth("Naves destruidas: " + contador)) / 2,graficos.getFont().getSize());
+
 			for (int j = 0; j < nebulas.size(); j++) {
 				Nebula n = nebulas.get(j);
 				n.load();
 				graficos.drawImage(n.getImagem(), n.getX(), n.getY(), this);
 			} // for
 
-			graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);// Nave fica acima do
-																						// tiro,visualmente fica mais
-																						// bonito
+			graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);// Nave fica acima do tiro,visualmente fica mais bonito
 			List<Tiro> tiros = player.getTiros();
 			for (int i = 0; i < tiros.size(); i++) {
 				Tiro m = tiros.get(i);
@@ -166,7 +175,6 @@ public class Fase extends JPanel implements ActionListener {
 			} else {
 				inimigo1.remove(o);
 			}
-
 		}
 
 		checarColisoes();
@@ -199,10 +207,13 @@ public class Fase extends JPanel implements ActionListener {
 				if (formaTiro.intersects(formaInimigo1)) {
 					tempInimigo1.setVisivel(false);
 					tempTiro.setVisivel(false);
+					contador++;
 				}
 			}
 		}
 
+		
+		
 	}// checarColisoes
 
 	private class TecladoAdapter extends KeyAdapter {
