@@ -21,7 +21,7 @@ public class Inimigo1 {
 	}// constructor
 
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\ini4.gif");
+		ImageIcon referencia = new ImageIcon("res\\naveInimiga1.gif");
 		imagem = referencia.getImage();
 
 		this.largura = imagem.getWidth(null);
