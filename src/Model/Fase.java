@@ -28,8 +28,11 @@ public class Fase extends JPanel implements ActionListener {
 	private List<Stars> star;
 	private boolean emJogo;
 	private int contador = 0;
+	private int fases=20;
 	static final int SCREEN_WIDTH = 900;
 	static final int SCREEN_HEIGHT = 650;
+	
+
 
 	public Fase() {
 		setFocusable(true);// melhoria de desempenho
@@ -57,7 +60,7 @@ public class Fase extends JPanel implements ActionListener {
 	}// constructor
 
 	public void inicializaInimigos() {
-		int coordenadas[] = new int[50];// numero maximos de inimigo(ajustar dificuldades dps)
+		int coordenadas[] = new int[fases];// numero maximos de inimigo(ajustar dificuldades dps)
 		inimigo1 = new ArrayList<Inimigo1>();
 
 		for (int i = 0; i < coordenadas.length; i++) {
@@ -176,13 +179,19 @@ public class Fase extends JPanel implements ActionListener {
 
 		if (player.isTurbo()) {
 			timer.setDelay(1);
-			player.setTurboLiberar(player.getTurboLiberar()-1);
+			player.setTurboLiberar(player.getTurboLiberar() - 1);
 		}
-		
+
 		if (player.isTurbo() == false) {
 			timer.setDelay(20);
 		}
+
 		
+		if(contador == 10) {
+			fases = fases +20;	
+			Inimigo1.setVELOCIDADE(Inimigo1.getVELOCIDADE()+1);
+			}
+	
 		
 		for (int j = 0; j < star.size(); j++) {
 			Stars on = star.get(j);
