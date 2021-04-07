@@ -5,23 +5,23 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Inimigo1 {
+public class Vida {
 
 	private Image imagem;
 	private int x, y;
 	private int largura, altura;
 	private boolean isVisivel;
 
-	private static int VELOCIDADE = 5;
+	private static int VELOCIDADE = 10;
 
-	public Inimigo1(int x, int y) {
+	public Vida(int x, int y) {
 		this.x = x;
 		this.y = y;
 		isVisivel = true;
 	}// constructor
 
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\ini4.gif");
+		ImageIcon referencia = new ImageIcon("res\\vida.png");
 		imagem = referencia.getImage();
 
 		this.largura = imagem.getWidth(null);

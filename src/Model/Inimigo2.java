@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Inimigo1 {
+public class Inimigo2 {
 
 	private Image imagem;
 	private int x, y;
@@ -14,14 +14,14 @@ public class Inimigo1 {
 
 	private static int VELOCIDADE = 5;
 
-	public Inimigo1(int x, int y) {
+	public Inimigo2(int x, int y) {
 		this.x = x;
 		this.y = y;
 		isVisivel = true;
 	}// constructor
 
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\ini4.gif");
+		ImageIcon referencia = new ImageIcon("res\\ini5.gif");
 		imagem = referencia.getImage();
 
 		this.largura = imagem.getWidth(null);

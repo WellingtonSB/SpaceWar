@@ -15,13 +15,12 @@ public class Player implements ActionListener {
 
 	private int x, y;
 	private int dx, dy;
-	private Image imagem;
+	private Image imagem, vida1;
 	private int altura, largura;
 	private List<Tiro> tiros;
-	private boolean isVisivel, isTurbo;
+	private boolean isVisivel, isTurbo, isTiroDuplo, teste;
 	private Timer timer;
-	private int vida,turboLiberar;
-	
+	private int vida, turboLiberar;
 
 	public Player() {
 		this.x = 100;
@@ -31,6 +30,7 @@ public class Player implements ActionListener {
 		turboLiberar = 3;
 		isVisivel = true;
 		isTurbo = false;
+		isTiroDuplo = false;
 		tiros = new ArrayList<Tiro>();
 
 		timer = new Timer(5000, this);// cronometro 7 segundos
@@ -62,10 +62,16 @@ public class Player implements ActionListener {
 	}
 
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\naveMAE.gif");
+		ImageIcon referencia = new ImageIcon("res\\nave.gif");
 		imagem = referencia.getImage();
 		altura = imagem.getHeight(null);
 		largura = imagem.getWidth(null);
+
+		ImageIcon referencia2 = new ImageIcon("res\\vida.png");
+		vida1 = referencia2.getImage();
+		altura = vida1.getHeight(null);
+		largura = vida1.getWidth(null);
+
 	}// load
 
 	public void update() {
@@ -74,7 +80,12 @@ public class Player implements ActionListener {
 	}// update
 
 	public void tiroSimples() {
-		this.tiros.add(new Tiro(x + (largura / 2), y + (altura / 2)));
+		if (isTiroDuplo == true) {
+			this.tiros.add(new Tiro(x + (largura / 3), y + (altura / 3)));
+			this.tiros.add(new Tiro(x + (largura / 1), y + (altura / 1)));
+		} else {
+			this.tiros.add(new Tiro(x + (largura / 2), y + (altura / 2)));
+		}
 	}// tirosimples
 
 	public Rectangle getBounds() {
@@ -82,9 +93,11 @@ public class Player implements ActionListener {
 	}
 
 	public void keypressed(KeyEvent tecla) {
-		int codigo = tecla.getKeyCode();
-		// quando pressionar a tecla dx e dy irão virar tres (ira se mexer)
+		int codigo = tecla.getKeyCode();// quando pressionar a tecla dx e dy irão virar tres (ira se mexer)
 
+		if (codigo == KeyEvent.VK_ENTER) {
+			teste = true;
+		}
 		if (codigo == KeyEvent.VK_CONTROL) {
 			turbo();
 
@@ -179,6 +192,14 @@ public class Player implements ActionListener {
 
 	public void setTurboLiberar(int turboLiberar) {
 		this.turboLiberar = turboLiberar;
+	}
+
+	public boolean isTiroDuplo() {
+		return isTiroDuplo;
+	}
+
+	public void setTiroDuplo(boolean isTiroDuplo) {
+		this.isTiroDuplo = isTiroDuplo;
 	}
 
 }// class
