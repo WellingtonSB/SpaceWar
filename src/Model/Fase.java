@@ -49,7 +49,7 @@ public class Fase extends JPanel implements ActionListener {
 
 		addKeyListener(new TecladoAdapter());
 
-		timer = new Timer(20, this);// velocidade do jogo
+		timer = new Timer(4, this);// velocidade do jogo
 		timer.start();
 
 		inicializaInimigos();
@@ -83,7 +83,7 @@ public class Fase extends JPanel implements ActionListener {
 	}// inicializaNebulas
 
 	public void inicializaStars() {
-		int coordenadas[] = new int[10];
+		int coordenadas[] = new int[20];
 		star = new ArrayList<Stars>();
 
 		for (int i = 0; i < coordenadas.length; i++) {

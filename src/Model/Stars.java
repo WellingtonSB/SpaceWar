@@ -25,7 +25,7 @@ public class Stars {
 	
 	public void load() {
 		
-		ImageIcon referencia = new ImageIcon("res\\estrelas.png");
+		ImageIcon referencia = new ImageIcon("res\\fundo2.jpg");
 		imagem = referencia.getImage();
 		
 		this.largura = imagem.getWidth(null);
