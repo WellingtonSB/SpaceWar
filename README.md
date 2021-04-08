@@ -8,4 +8,4 @@
 - [x] :video_game:Fase inicial.
 - [x] :rocket: Jogador Fisicas e Sprites.
 - [x] :space_invader: inimigos Fisicas e Sprites.
-- [] :smiling_imp:Boss Sprites e fisica.
+
