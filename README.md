@@ -22,10 +22,10 @@
 ## Descrição do projeto 
 
 <p align="justify">
- Space Wars Um jogo para praticar o aprendizado de POO(java)
+ Space Wars Um jogo para praticar o aprendizado de POO(java) e logica de progrmação.
 </p>
 
-## Layout  :dash:
+## Layout 
 
 > ![image](https://user-images.githubusercontent.com/31409846/113967749-08d0e400-9808-11eb-8a5d-7b0f6a95ec47.png)
 
