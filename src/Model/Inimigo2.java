@@ -13,7 +13,7 @@ public class Inimigo2 {
 	private boolean isVisivel;
 	
 
-	private static int VELOCIDADE = 5;
+	private static int VELOCIDADE = 7;
 
 	public Inimigo2(int x, int y) {
 		this.x = x;

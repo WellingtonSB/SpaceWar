@@ -36,7 +36,10 @@ public class Fase extends JPanel implements ActionListener {
 	private int ini1 = 20;
 	private int ini2 = 0;
 	private int ini3 = 0;
-	int contadora = 0;
+	int contNivel2 = 0;
+	int contNivel3 = 0;
+	boolean chamado = false;
+
 	static final int SCREEN_WIDTH = 900;
 	static final int SCREEN_HEIGHT = 650;
 
@@ -57,7 +60,7 @@ public class Fase extends JPanel implements ActionListener {
 
 			addKeyListener(new TecladoAdapter());
 
-			timer = new Timer(4, this);// velocidade do jogo
+			timer = new Timer(2, this);// velocidade do jogo
 			timer.start();
 
 			inicializaInimigos();
@@ -84,7 +87,8 @@ public class Fase extends JPanel implements ActionListener {
 	}// inicializaInimigos
 
 	public void inicializaInimigos2() {
-		int coordenadas[] = new int[ini2];
+		int coordenadas[] = new int[this.getIni2()];
+
 		inimigo2 = new ArrayList<Inimigo2>();
 
 		for (int a = 0; a < coordenadas.length; a++) {
@@ -97,7 +101,7 @@ public class Fase extends JPanel implements ActionListener {
 
 	public void inicializaInimigos3() {
 
-		int coordenadas[] = new int[ini3];
+		int coordenadas[] = new int[this.getIni3()];
 		inimigo3 = new ArrayList<Inimigo3>();
 
 		for (int a = 0; a < coordenadas.length; a++) {
@@ -117,6 +121,7 @@ public class Fase extends JPanel implements ActionListener {
 			int y = (int) ((Math.random() * 768) - (Math.random() * 768));
 			nebulas.add(new Nebula(x, y));
 		} // for
+
 	}// inicializaNebulas
 
 	public void inicializaStars() {
@@ -250,9 +255,24 @@ public class Fase extends JPanel implements ActionListener {
 			timer.setDelay(20);
 		}
 
-		if (contInim1 == 2) { // nivel 2
+		if (contNivel2 == 0 && contInim1 == 10) { // nivel 2
+			this.setIni2(this.getIni2() + 20);
 
 			// Inimigo1.setVELOCIDADE(Inimigo1.getVELOCIDADE() + 1);
+
+			this.inicializaInimigos2();
+
+			contNivel2++;
+		}
+
+		if (contNivel3 == 0 && contInim2 == 10) { // nivel 2
+			this.setIni3(this.getIni3() + 20);
+
+			// Inimigo1.setVELOCIDADE(Inimigo1.getVELOCIDADE() + 1);
+
+			this.inicializaInimigos3();
+
+			contNivel3++;
 		}
 
 		for (int j = 0; j < star.size(); j++) {
@@ -344,19 +364,25 @@ public class Fase extends JPanel implements ActionListener {
 		for (int i = 0; i < inimigo1.size(); i++) {
 			Inimigo1 tempInimigo1 = inimigo1.get(i);
 			formaInimigo1 = tempInimigo1.getBounds();
+
 			if (formaNave.intersects(formaInimigo1)) {
 
 				if (player.isTurbo()) {
 					tempInimigo1.setVisivel(false);
 					contInim1++;
+
 				} else if (player.getVida() != 0) {
 					player.setVisivel(false);
 					tempInimigo1.setVisivel(false);
 					player.setVida(player.getVida() - 1);
+					player.setX(100);
+					player.setY(728/2);
+
 				} else {
 					player.setVisivel(false);
 					tempInimigo1.setVisivel(false);
 					emJogo = false;
+
 				}
 			}
 		}
@@ -364,19 +390,23 @@ public class Fase extends JPanel implements ActionListener {
 		for (int f = 0; f < inimigo2.size(); f++) {
 			Inimigo2 tempInimigo2 = inimigo2.get(f);
 			formaInimigo2 = tempInimigo2.getBounds();
+
 			if (formaNave.intersects(formaInimigo2)) {
 
 				if (player.isTurbo()) {
 					tempInimigo2.setVisivel(false);
 					contInim2++;
+
 				} else if (player.getVida() != 0) {
 					player.setVisivel(false);
 					tempInimigo2.setVisivel(false);
 					player.setVida(player.getVida() - 1);
+
 				} else {
 					player.setVisivel(false);
 					tempInimigo2.setVisivel(false);
 					emJogo = false;
+
 				}
 			}
 		}
@@ -384,19 +414,23 @@ public class Fase extends JPanel implements ActionListener {
 		for (int f = 0; f < inimigo3.size(); f++) {
 			Inimigo3 tempInimigo3 = inimigo3.get(f);
 			formaInimigo3 = tempInimigo3.getBounds();
+
 			if (formaNave.intersects(formaInimigo3)) {
 
 				if (player.isTurbo()) {
 					tempInimigo3.setVisivel(false);
 					contInim3++;
+
 				} else if (player.getVida() != 0) {
 					player.setVisivel(false);
 					tempInimigo3.setVisivel(false);
 					player.setVida(player.getVida() - 1);
+
 				} else {
 					player.setVisivel(false);
 					tempInimigo3.setVisivel(false);
 					emJogo = false;
+
 				}
 			}
 		}
@@ -404,6 +438,7 @@ public class Fase extends JPanel implements ActionListener {
 		for (int w = 0; w < vida.size(); w++) {
 			Vida vipa = vida.get(w);
 			vi = vipa.getBounds();
+
 			if (formaNave.intersects(vi)) {
 				player.setVisivel(false);
 				vipa.setVisivel(false);
@@ -414,9 +449,11 @@ public class Fase extends JPanel implements ActionListener {
 		}
 
 		List<Tiro> tiro1 = player.getTiros();
+
 		for (int j = 0; j < tiro1.size(); j++) {
 			Tiro tempTiro1 = tiro1.get(j);
 			formaTiro1 = tempTiro1.getBounds();
+
 			for (int k = 0; k < inimigo1.size(); k++) {
 				Inimigo1 tempInimigo1 = inimigo1.get(k);
 				formaInimigo1 = tempInimigo1.getBounds();
@@ -477,5 +514,21 @@ public class Fase extends JPanel implements ActionListener {
 		}// keyRelease
 
 	}// class TecladoAdapter
+
+	public void setIni2(int ini2) {
+		this.ini2 = ini2;
+	}
+
+	public int getIni2() {
+		return this.ini2;
+	}
+
+	public void setIni3(int ini3) {
+		this.ini3 = ini3;
+	}
+
+	public int getIni3() {
+		return this.ini3;
+	}
 
 }// class

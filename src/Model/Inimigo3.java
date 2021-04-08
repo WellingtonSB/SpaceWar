@@ -12,7 +12,7 @@ public class Inimigo3 {
 	private int largura, altura;
 	private boolean isVisivel;
 
-	private static int VELOCIDADE = 5;
+	private static int VELOCIDADE = 4;
 
 	public Inimigo3(int x, int y) {
 		this.x = x;
