@@ -11,6 +11,7 @@ public class Inimigo2 {
 	private int x, y;
 	private int largura, altura;
 	private boolean isVisivel;
+	
 
 	private static int VELOCIDADE = 5;
 

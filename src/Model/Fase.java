@@ -34,8 +34,9 @@ public class Fase extends JPanel implements ActionListener {
 	private int contInim2 = 0;
 	private int contInim3 = 0;
 	private int ini1 = 20;
-	private int ini2 = 1;
-	private int ini3 = 1;
+	private int ini2 = 0;
+	private int ini3 = 0;
+	int contadora = 0;
 	static final int SCREEN_WIDTH = 900;
 	static final int SCREEN_HEIGHT = 650;
 
@@ -63,6 +64,7 @@ public class Fase extends JPanel implements ActionListener {
 			inicializaNebulas();
 			inicializaStars();
 			inicializaVida();
+			inicializaInimigos();
 			inicializaInimigos2();
 			inicializaInimigos3();
 			emJogo = true;
@@ -94,6 +96,7 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	public void inicializaInimigos3() {
+
 		int coordenadas[] = new int[ini3];
 		inimigo3 = new ArrayList<Inimigo3>();
 
@@ -247,9 +250,9 @@ public class Fase extends JPanel implements ActionListener {
 			timer.setDelay(20);
 		}
 
-		if (contInim1 == 10) // nivel 2
-		{
-			 // Inimigo1.setVELOCIDADE(Inimigo1.getVELOCIDADE() + 1);
+		if (contInim1 == 2) { // nivel 2
+
+			// Inimigo1.setVELOCIDADE(Inimigo1.getVELOCIDADE() + 1);
 		}
 
 		for (int j = 0; j < star.size(); j++) {
@@ -321,7 +324,9 @@ public class Fase extends JPanel implements ActionListener {
 				vida.remove(s);
 			}
 		}
+
 		checarColisoes();
+
 		repaint();// sempre que a gente se mover ele reprinta(atualiza a imagem)
 
 	}// actionPerformed
