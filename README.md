@@ -1,6 +1,6 @@
 # Space Wars Game
-<h1><img src="https://lh3.googleusercontent.com/proxy/VR5eeTr_WHWIXUGemyNMCz5sM4LBHaXcw7EUfdfPKIlXTkPZEFQmdC11SGcXZxtefyPiUjPRPJMpsXtoSkp6lPo66x7KMHHNHZQcadElbc51AZAd3NcSgdq3xCV7JIHq6Fz1ZCA0VOQxRnzu7hMqkocHxHKPqSWIDCE8gdf2V84"/>
-</h1> 
+
+
    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
 </p>
 
