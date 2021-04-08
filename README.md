@@ -8,7 +8,7 @@
 - [x] :video_game:Fase inicial.
 - [x] :rocket: Jogador físicas e Sprites.
 - [x] :space_invader: inimigos físicas  e Sprites.
-- [ ] :smiling_imp:Boss Sprites e físicas.
+
 
 ### Tópicos 
 
@@ -22,7 +22,7 @@
 ## Descrição do projeto 
 
 <p align="justify">
- Space Wars Um jogo para praticar o aprendizado de JAVA
+ Space Wars Um jogo para praticar o aprendizado de POO(java)
 </p>
 
 ## Layout  :dash:
@@ -32,8 +32,8 @@
 
 ## Pré-requisitos
 
-:warning: 1[JAVA JDK](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) 
-          2[Eclipse](https://www.eclipse.org/downloads/)
+1[JAVA JDK](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) 
+2[Eclipse](https://www.eclipse.org/downloads/)
 
 Instale o Java e o eclipse para importa o projeto e rodar.
 
